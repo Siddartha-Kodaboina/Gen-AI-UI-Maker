@@ -1,14 +1,42 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Editor from '@monaco-editor/react';
+import { updateFile } from '../../services/api';
 import './CodeEditor.css';
 
-const CodeEditor = ({ file, content, onChange }) => {
+const CodeEditor = ({ file, content, onChange, onSave }) => {
     const getLanguage = (filename) => {
-        if (filename?.endsWith('.html')) return 'html';
-        if (filename?.endsWith('.css')) return 'css';
-        if (filename?.endsWith('.js')) return 'javascript';
+        if (!filename) return 'plaintext';
+        if (filename.endsWith('.html')) return 'html';
+        if (filename.endsWith('.css')) return 'css';
+        if (filename.endsWith('.js')) return 'javascript';
         return 'plaintext';
     };
+
+    // Debounce function to limit API calls
+    const debounce = (func, wait) => {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    };
+
+    // Auto-save when content changes
+    const handleChange = debounce(async (value) => {
+        if (file && value !== content) {
+            try {
+                await updateFile(file, value);
+                onChange?.(value);
+                onSave?.();  // Trigger preview refresh
+            } catch (error) {
+                console.error('Error saving file:', error);
+            }
+        }
+    }, 1000);  // Wait 1 second after last change before saving
 
     return (
         <div className="code-editor">
@@ -20,7 +48,7 @@ const CodeEditor = ({ file, content, onChange }) => {
                     height="100%"
                     defaultLanguage={getLanguage(file)}
                     value={content}
-                    onChange={onChange}
+                    onChange={handleChange}
                     theme="vs-dark"
                     options={{
                         fontSize: 14,

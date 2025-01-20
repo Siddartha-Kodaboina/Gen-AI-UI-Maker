@@ -12,6 +12,19 @@ export const generateCode = async (prompt) => {
     }
 };
 
+export const updateFile = async (filename, content) => {
+    try {
+        const response = await axios.put(`${API_BASE_URL}/files/`, {
+            file: filename,
+            content: content
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Update Error:', error);
+        throw error;
+    }
+};
+
 export const getFileContent = async (filename) => {
     try {
         const response = await axios.get(`${API_BASE_URL}/files/`, {
@@ -20,16 +33,6 @@ export const getFileContent = async (filename) => {
         return response.data;
     } catch (error) {
         console.error('API Error:', error);
-        throw error;
-    }
-};
-
-export const getPreview = async (filename) => {
-    try {
-        const response = await axios.get(`${API_BASE_URL}/preview/${filename}`);
-        return response.data;
-    } catch (error) {
-        console.error('Preview Error:', error);
         throw error;
     }
 };

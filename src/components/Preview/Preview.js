@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Preview.css';
 
 const Preview = ({ previewUrl }) => {
     const [key, setKey] = useState(0);
 
-    const handleRefresh = () => {
+    // Force refresh the preview
+    const refreshPreview = () => {
         setKey(prev => prev + 1);
     };
 
-    const handleOpenExternal = () => {
-        if (previewUrl) {
-            window.open(previewUrl, '_blank');
-        }
-    };
+    // Refresh when previewUrl changes
+    useEffect(() => {
+        refreshPreview();
+    }, [previewUrl]);
 
     return (
         <div className="preview-container">
@@ -20,16 +20,11 @@ const Preview = ({ previewUrl }) => {
                 <span>Preview</span>
                 <div className="preview-controls">
                     <button 
-                        className="control-button refresh" 
-                        onClick={handleRefresh}
+                        className="control-button refresh"
+                        onClick={refreshPreview}
+                        title="Refresh preview"
                     >
                         ↻
-                    </button>
-                    <button 
-                        className="control-button external"
-                        onClick={handleOpenExternal}
-                    >
-                        ⎋
                     </button>
                 </div>
             </div>
@@ -44,7 +39,6 @@ const Preview = ({ previewUrl }) => {
                             width: '100%',
                             height: '100%',
                             border: 'none',
-                            backgroundColor: 'white'
                         }}
                     />
                 ) : (
