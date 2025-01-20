@@ -1,0 +1,50 @@
+.preview-container {
+  width: 400px;
+  height: 100%;
+  background: #1e1e1e;
+  border-left: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-header {
+  background: #252526;
+  padding: 0 15px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #333;
+  color: #fff;
+  font-size: 13px;
+}
+
+.preview-controls {
+  display: flex;
+  gap: 5px;
+}
+
+.control-button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.control-button:hover {
+  background: #2a2d2e;
+}
+
+.preview-frame {
+  flex: 1;
+  background: #fff;
+}
+
+.preview-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}

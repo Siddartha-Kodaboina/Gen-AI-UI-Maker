@@ -1,0 +1,64 @@
+.file-explorer {
+  background: #1e1e1e;
+  width: 250px;
+  height: 100%;
+  border-right: 1px solid #333;
+  color: #fff;
+}
+
+.file-explorer-header {
+  padding: 15px;
+  background: #252526;
+  border-bottom: 1px solid #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.folder-icon {
+  color: #dcb67a;
+}
+
+.file-list {
+  padding: 10px 0;
+}
+
+.file-item {
+  padding: 8px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.file-item:hover {
+  background: #2a2d2e;
+}
+
+.file-item.selected {
+  background: #37373d;
+}
+
+.file-icon {
+  font-size: 16px;
+}
+
+.file-icon.html {
+  color: #e44d26;
+}
+
+.file-icon.css {
+  color: #264de4;
+}
+
+.file-icon.js {
+  color: #f7df1e;
+}
+
+.file-name {
+  font-size: 13px;
+  font-family: 'Segoe UI', sans-serif;
+}
